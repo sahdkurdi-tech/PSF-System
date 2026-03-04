@@ -1,0 +1,116 @@
+@font-face {
+    font-family: 'NRT';
+    src: url('../NRT-Reg.ttf') format('truetype');
+}
+
+:root {
+    --bg-color: #f8fafc;
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --text-dark: #1e293b;
+    --text-gray: #64748b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'NRT', sans-serif; }
+body { background-color: var(--bg-color); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; position: relative; }
+
+.bg-shape { position: absolute; filter: blur(90px); z-index: -1; opacity: 0.5; border-radius: 50%; }
+.bg-shape-1 { width: 300px; height: 300px; background: #c7d2fe; top: -50px; right: -50px; }
+.bg-shape-2 { width: 400px; height: 400px; background: #ddd6fe; bottom: 100px; left: -100px; }
+
+.app-header {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    position: sticky; top: 0; z-index: 50;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+
+.header-container { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.header-titles h1 { font-size: 20px; color: var(--text-dark); }
+.header-titles p { font-size: 13px; color: var(--text-gray); }
+
+.btn-logout {
+    display: flex; align-items: center; gap: 6px;
+    background: #fee2e2; color: #ef4444; border: none; padding: 10px 16px; border-radius: 12px; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.2s;
+}
+.btn-logout:active { transform: scale(0.95); background: #fca5a5; }
+
+.main-container { max-width: 600px; margin: 40px auto; padding: 0 20px; animation: slideUp 0.5s ease forwards; }
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.upload-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px; padding: 35px 30px;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08);
+    border: 1px solid rgba(255,255,255,0.6);
+}
+
+.card-header { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+.icon-wrapper { width: 45px; height: 45px; background: #e0e7ff; color: var(--primary); border-radius: 14px; display: flex; justify-content: center; align-items: center; }
+.icon-wrapper svg { width: 24px; height: 24px; }
+.upload-card h2 { font-size: 22px; }
+.subtitle { color: var(--text-gray); margin-bottom: 30px; font-size: 15px; line-height: 1.5; }
+
+.input-group { margin-bottom: 25px; }
+.input-group label { display: block; margin-bottom: 10px; font-weight: bold; color: var(--text-dark); font-size: 15px; }
+.input-group input[type="text"] {
+    width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 16px; font-size: 15px; outline: none; transition: all 0.3s; background: #f8fafc;
+}
+.input-group input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); background: white; }
+
+.file-input {
+    width: 100%; padding: 15px; border: 2px dashed #cbd5e1; border-radius: 16px; background: #f8fafc; cursor: pointer; color: var(--text-gray); transition: 0.3s;
+}
+.file-input:hover { border-color: var(--primary); background: #f1f5f9; }
+
+.btn-upload {
+    width: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; border: none; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+}
+.btn-upload:active { transform: scale(0.97); }
+.btn-upload:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; transform: none; }
+
+.progress-container { margin: 20px 0; background: #e2e8f0; border-radius: 12px; height: 28px; position: relative; overflow: hidden; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, #10b981, #34d399); width: 0%; transition: width 0.4s ease; }
+#progressText { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 13px; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+
+.status-message { text-align: center; margin-top: 15px; font-weight: bold; font-size: 15px; min-height: 22px; }
+
+/* === دیزاینی خشتەی فایلەکان === */
+.files-list-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px; padding: 35px 30px;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08);
+    border: 1px solid rgba(255,255,255,0.6);
+    animation: slideUp 0.6s ease forwards;
+}
+
+.table-container { margin-top: 20px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; text-align: right; }
+th, td { padding: 15px 10px; border-bottom: 1px solid #e2e8f0; }
+th { color: var(--text-gray); font-size: 14px; font-weight: bold; }
+td { color: var(--text-dark); font-size: 15px; font-weight: bold; }
+
+.btn-delete {
+    background: #fee2e2; color: #ef4444; border: none; padding: 8px 12px;
+    border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s;
+    display: inline-flex; align-items: center; gap: 5px; font-family: 'NRT', sans-serif;
+    font-size: 13px;
+}
+.btn-delete:hover { background: #fca5a5; }
+.btn-delete:active { transform: scale(0.95); }
+.btn-delete:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.loading-text { text-align: center !important; color: var(--text-gray) !important; font-weight: normal !important; padding: 30px !important; }
+
+/* === دیزاینی ڕاکێشان و بەرەڵاکردن (Drag & Drop) === */
+.drag-handle { cursor: grab; color: #94a3b8; text-align: center; }
+.drag-handle:active { cursor: grabbing; color: var(--primary); }
+.sortable-ghost { opacity: 0.4; background-color: #f1f5f9; }

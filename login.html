@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>چوونەژوورەوەی بەڕێوەبەر</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+
+    <main class="login-container">
+        <div class="login-card">
+            <div class="logo-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            
+            <h2>بەخێربێیتەوە</h2>
+            <p class="subtitle">تکایە زانیارییەکانت بنووسە بۆ چوونەژوورەوە</p>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>ئیمەیڵ</label>
+                    <input type="email" id="email" placeholder="example@email.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label>وشەی نهێنی (پاسوۆرد)</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" id="loginBtn" class="btn-login">چوونەژوورەوە</button>
+                <p id="error-msg" class="error-message"></p>
+            </form>
+        </div>
+    </main>
+
+    <script type="module" src="js/login.js"></script>
+</body>
+</html>
