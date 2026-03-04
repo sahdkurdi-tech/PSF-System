@@ -173,3 +173,33 @@ const { data: pdfs, error } = await supabase
 }
 
 loadPDFs();
+
+// === بەشی گۆڕینی شێوازی بینین (Grid / List) ===
+const viewToggleBtn = document.getElementById('viewToggleBtn');
+const pdfGrid = document.getElementById('pdf-grid');
+
+// دروستکردنی ئایکۆنەکانی (کارت و لیست)
+const listIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>`;
+const gridIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>`;
+
+// وەرگرتنی هەڵبژاردەی پێشووی بەکارهێنەر (بۆ ئەوەی لە بیری نەچێتەوە)
+const currentView = localStorage.getItem('viewMode') || 'grid';
+if (currentView === 'list') {
+    pdfGrid.classList.add('list-view');
+    viewToggleBtn.innerHTML = gridIcon;
+} else {
+    viewToggleBtn.innerHTML = listIcon;
+}
+
+// کاتی پەنجەدان لە دوگمەکە
+viewToggleBtn.addEventListener('click', () => {
+    pdfGrid.classList.toggle('list-view');
+    
+    if (pdfGrid.classList.contains('list-view')) {
+        localStorage.setItem('viewMode', 'list'); // خەزنکردنی هەڵبژاردەی لیست
+        viewToggleBtn.innerHTML = gridIcon; // گۆڕینی ئایکۆنەکە بۆ کارت
+    } else {
+        localStorage.setItem('viewMode', 'grid'); // خەزنکردنی هەڵبژاردەی کارت
+        viewToggleBtn.innerHTML = listIcon; // گۆڕینی ئایکۆنەکە بۆ لیست
+    }
+});

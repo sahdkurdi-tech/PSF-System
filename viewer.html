@@ -12,23 +12,29 @@
     <div class="bg-shape bg-shape-1"></div>
     <div class="bg-shape bg-shape-2"></div>
 
-    <header class="app-header">
-        <div class="header-container">
-            <div class="logo-wrapper">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M17 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"/>
-                    <path d="M9 7h6"/>
-                    <path d="M9 11h6"/>
-                    <path d="M9 15h4"/>
-                </svg>
+<header class="app-header">
+        <div class="header-container" style="justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="logo-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"/>
+                        <path d="M9 7h6"/>
+                        <path d="M9 11h6"/>
+                        <path d="M9 15h4"/>
+                    </svg>
+                </div>
+                <div class="header-titles">
+                    <h1>لیستی فایلەکان</h1>
+                    <p>سیستەمی خێرای چاپکردن</p>
+                </div>
             </div>
-            <div class="header-titles">
-                <h1>لیستی فایلەکان</h1>
-                <p>سیستەمی خێرای چاپکردن</p>
-            </div>
+            
+            <button id="viewToggleBtn" class="btn-icon" title="گۆڕینی شێوازی بینین">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
         </div>
     </header>
-
+    
     <main class="main-container">
         <div id="pdf-grid" class="cards-grid">
             <div class="loading-spinner">خەریکی هێنانی فایلەکانە...</div>

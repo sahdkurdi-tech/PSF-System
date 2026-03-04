@@ -132,3 +132,86 @@ html, body {
 
 .modal-body { flex: 1; width: 100%; background: #e2e8f0; }
 .modal-body iframe { width: 100%; height: 100%; border: none; }
+
+/* === دیزاینی دوگمەی گۆڕینی بینین === */
+.btn-icon {
+    background: #e2e8f0;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-dark);
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+.btn-icon:active { transform: scale(0.95); background: #cbd5e1; }
+
+/* === دیزاینی شێوازی لیست (List View) === */
+.cards-grid.list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cards-grid.list-view .pdf-card {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 12px;
+    gap: 15px;
+}
+
+/* هێنانەوەی وێنەکە و بچووککردنەوەی بە قەد قەبارەی لیستەکە */
+.cards-grid.list-view .paper-preview-wrapper {
+    display: flex;
+    width: 40px; /* پانییەکی بچووک */
+    height: 55px; /* بەرزییەکی گونجاو لەگەڵ لیستەکە */
+    aspect-ratio: auto; /* لابردنی ڕێژەی پێشوو */
+    border-radius: 6px; /* کەمێک چەمانەوە بۆ جوانی */
+    flex-shrink: 0;
+    order: 1; /* خستنە لای ڕاست */
+}
+
+.cards-grid.list-view .pdf-title {
+    flex: 1;
+    text-align: right;
+    border-bottom: none;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    order: 2; /* خستنە ناوەڕاست */
+    /* ڕێگری لە تێکچوونی شاشە ئەگەر ناوەکە درێژ بوو */
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.cards-grid.list-view .action-buttons {
+    width: auto;
+    flex-direction: row;
+    gap: 8px;
+    order: 3; /* خستنە لای چەپ */
+}
+
+.cards-grid.list-view .btn {
+    height: 40px;
+    padding: 0 15px;
+    font-size: 14px;
+    flex: none;
+}
+
+/* لەسەر شاشە بچووکەکان، تەنها ئایکۆنی چاپکردن و کردنەوە دەهێڵێتەوە */
+@media (max-width: 500px) {
+    .cards-grid.list-view .btn {
+        font-size: 0;
+        width: 40px;
+        padding: 0;
+    }
+    .cards-grid.list-view .btn svg {
+        margin: 0;
+        width: 20px; height: 20px;
+    }
+}
