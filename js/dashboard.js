@@ -263,7 +263,7 @@ copyLinkBtn.addEventListener('click', () => {
     
     // تأثير بصري عند النسخ
     const originalText = copyLinkBtn.innerText;
-    copyLinkBtn.innerText = 'تم النسخ!';
+    copyLinkBtn.innerText = 'کۆپی کرا!';
     copyLinkBtn.style.background = '#10b981'; // لون أخضر
     
     setTimeout(() => {
