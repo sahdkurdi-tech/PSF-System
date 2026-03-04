@@ -14,24 +14,26 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'NRT', sans-serif; }
 
+/* چارەسەری کۆتایی: لابردنی هەر بەربەستێک لەسەر html و دانانی تەنها بۆ body */
 body { 
     background-color: var(--bg-color); 
     color: var(--text-dark); 
     min-height: 100vh; 
-    overflow-x: hidden; 
     position: relative; 
-    width: 100%; /* دڵنیابوون لەوەی لاشەی پەڕەکە نایەتە دەرەوە */
+    width: 100%; 
+    overflow-x: hidden; /* تەنها لێرە دەبێت بۆ ڕێگریکردن لە بۆشاییە سپییەکە */
+    -webkit-overflow-scrolling: touch; /* ئەمە وا دەکات سکرۆڵەکە وەکو ئایفۆن نەرم و خێرا بێت */
 }
 
 .bg-shape { 
     position: absolute; 
     filter: blur(90px); 
-    -webkit-filter: blur(90px); /* بۆ گونجان لەگەڵ وێبگەڕەکانی ئەپڵ */
-    z-index: -10; /* خستنە دواوەی بەتەواوی */
+    -webkit-filter: blur(90px); 
+    z-index: -10; 
     opacity: 0.4; 
     border-radius: 50%; 
-    pointer-events: none; /* گرنگترین هێڵ: ڕێگری دەکات لەوەی ببێتە بەربەست لەبەردەم پەنجەدان */
-    transform: translate3d(0, 0, 0); /* چارەسەری کێشەی زاڵبوونی شێوەکان لە مۆبایلدا */
+    pointer-events: none; 
+    transform: translate3d(0, 0, 0); 
 }
 .bg-shape-1 { width: 350px; height: 350px; background: #bfdbfe; top: -100px; right: -50px; }
 .bg-shape-2 { width: 400px; height: 400px; background: #bbf7d0; bottom: -100px; left: -100px; }
@@ -45,7 +47,6 @@ body {
 
 .main-container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
 
-/* === گونجاندنی کارتەکان بۆ مۆبایل و شاشەکان === */
 .cards-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 @media (min-width: 650px) { 
     .cards-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; } 
@@ -54,7 +55,7 @@ body {
 .pdf-card { 
     background: var(--card-bg); 
     border-radius: 20px; 
-    padding: 18px; /* زیادکردنی بۆشایی بۆ جوانی */
+    padding: 18px; 
     box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); 
     border: 1px solid rgba(0,0,0,0.03); 
     transition: transform 0.3s, box-shadow 0.3s; 
@@ -62,33 +63,32 @@ body {
     flex-direction: column; 
     gap: 15px; 
     animation: fadeInUp 0.5s ease forwards; 
+    /* ڕێگری لە چوونەدەرەوەی ناوە درێژەکان لەناو کارتەکە */
+    max-width: 100%;
+    overflow: hidden;
 }
 .pdf-card:hover { transform: translateY(-5px); box-shadow: 0 20px 30px -5px rgba(0,0,0,0.08); }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* === دیزاینی ناوی فایل (لەسەرەوە و ناوەڕاست) === */
 .pdf-title { 
     font-size: 16px; 
     font-weight: bold; 
-    text-align: center; /* خستنە ناوەڕاست */
+    text-align: center; 
     white-space: nowrap; 
     overflow: hidden; 
     text-overflow: ellipsis; 
-    padding: 0 5px 12px 5px; /* بۆشایی لە خوارەوە بۆ هێڵەکە */
+    padding: 0 5px 12px 5px; 
     color: var(--text-dark);
-    border-bottom: 2px dashed #e2e8f0; /* هێڵێکی پچڕپچڕ لە ژێر ناوەکە */
+    border-bottom: 2px dashed #e2e8f0; 
 }
 
-/* شوێنی پێشاندانی وێنەی کاغەزەکە */
 .paper-preview-wrapper { width: 100%; aspect-ratio: 1 / 1.3; background: #f1f5f9; border-radius: 12px; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; border: 1px solid #e2e8f0; }
 
-/* ئەو وێنەیەی PDF.js دروستی دەکات */
 .pdf-canvas { width: 100%; height: 100%; object-fit: cover; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
 
 .spinner-small { width: 30px; height: 30px; border: 3px solid #cbd5e1; border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* === ڕێکخستنی دوگمەکان بۆ مۆبایلە زۆر بچووکەکان === */
 .action-buttons { 
     display: flex; 
     gap: 10px; 
@@ -96,24 +96,21 @@ body {
     flex-direction: row; 
 }
 @media (max-width: 400px) {
-    .action-buttons { flex-direction: column; } /* لە شاشەی زۆر بچووکدا دەبنە سەر یەک */
+    .action-buttons { flex-direction: column; } 
 }
 
 .btn { flex: 1; display: flex; justify-content: center; align-items: center; gap: 8px; height: 45px; border-radius: 12px; font-size: 15px; font-weight: bold; cursor: pointer; border: none; transition: all 0.2s; font-family: 'NRT', sans-serif; }
 .btn svg { width: 18px; height: 18px; }
 
-/* دوگمەی چاپکردن */
 .btn-print { background: var(--print-color); color: white; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
 .btn-print:active { transform: scale(0.96); }
 .btn-print:disabled { background: #9ca3af; cursor: wait; }
 
-/* دوگمەی کردنەوە */
 .btn-open { background: #e2e8f0; color: var(--text-dark); }
 .btn-open:active { transform: scale(0.96); background: #cbd5e1; }
 
 .loading-spinner { grid-column: 1 / -1; text-align: center; font-size: 18px; color: var(--text-gray); padding: 40px; }
 
-/* === دیزاینی پەنجەرەی Modal بۆ بینینی گەورە === */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 100; display: none; justify-content: center; align-items: center; opacity: 0; animation: fadeIn 0.3s forwards; }
 @keyframes fadeIn { to { opacity: 1; } }
 
@@ -128,23 +125,3 @@ body {
 
 .modal-body { flex: 1; width: 100%; background: #e2e8f0; }
 .modal-body iframe { width: 100%; height: 100%; border: none; }
-
-/* === منع الانزياح الجانبي (Horizontal Scroll) على شاشات الموبايل === */
-html, body {
-    max-width: 100vw;
-    overflow-x: hidden !important;
-}
-
-.main-container {
-    max-width: 100%;
-}
-
-.cards-grid {
-    max-width: 100%;
-}
-
-.pdf-card {
-    max-width: 100%;
-    overflow: hidden; /* ڕێگری دەکات لە هەر توخمێک کە لە قەبارەی کارتەکە گەورەتر بێت */
-    box-sizing: border-box;
-}
