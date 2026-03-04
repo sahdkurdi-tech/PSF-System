@@ -116,13 +116,21 @@ async function loadPDFs() {
             card.className = 'pdf-card';
             card.style.animationDelay = `${delay}s`;
 
+            // زیادکردنی دوگمەی ناردن لە تەنیشت چاپکردن
             card.innerHTML = `
                 <div class="pdf-title" title="${doc.name}">${doc.name}</div>
+                <div style="text-align:center; margin-top:-10px; margin-bottom:5px;">
+                    <span style="color: gray; font-size: 13px;" dir="ltr">${doc.file_size || ''}</span>
+                </div>
                 <div class="paper-preview-wrapper">
                     <div class="spinner-small"></div>
                 </div>
                 <div class="action-buttons">
-                    <button class="btn btn-print">
+                    <button class="btn btn-share" title="ناردن">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+                        ناردن
+                    </button>
+                    <button class="btn btn-print" title="چاپکردن">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
                         چاپکردن
                     </button>
@@ -130,8 +138,31 @@ async function loadPDFs() {
             `;
             gridDiv.appendChild(card);
 
+            // ئیشپێکردنی دوگمەی چاپکردن
             const printBtn = card.querySelector('.btn-print');
             printBtn.addEventListener('click', () => directPrint(doc.id, doc.file_url, printBtn));
+
+            // ئیشپێکردنی دوگمەی ناردن (Share)
+            const shareBtn = card.querySelector('.btn-share');
+            shareBtn.addEventListener('click', async () => {
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: doc.name,
+                            text: `تکایە سەیری ئەم فایلە بکە: ${doc.name}`,
+                            url: doc.file_url
+                        });
+                    } catch (err) {
+                        console.log('پرۆسەی ناردن هەڵوەشایەوە یان سەرکەوتوو نەبوو.');
+                    }
+                } else {
+                    // ئەگەر ئامێرەکە پشتگیری ناردنی نەکرد، لینکەکەی بۆ کۆپی دەکات
+                    navigator.clipboard.writeText(doc.file_url);
+                    const originalHTML = shareBtn.innerHTML;
+                    shareBtn.innerHTML = '<span style="font-size: 14px;">کۆپی کرا!</span>';
+                    setTimeout(() => { shareBtn.innerHTML = originalHTML; }, 2000);
+                }
+            });
 
             const canvasContainer = card.querySelector('.paper-preview-wrapper');
             renderPdfThumbnail(doc.file_url, canvasContainer);

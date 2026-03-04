@@ -215,3 +215,13 @@ html, body {
         width: 20px; height: 20px;
     }
 }
+
+/* === دوگمەی ناردن === */
+.btn-share { 
+    background: #3b82f6; /* ڕەنگی شین بۆ ناردن */
+    color: white; 
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2); 
+}
+.btn-share:active { 
+    transform: scale(0.96); 
+}
