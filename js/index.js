@@ -175,15 +175,16 @@ const { data: pdfs, error } = await supabase
 loadPDFs();
 
 // === بەشی گۆڕینی شێوازی بینین (Grid / List) ===
+// === بەشی گۆڕینی شێوازی بینین (Grid / List) ===
 const viewToggleBtn = document.getElementById('viewToggleBtn');
 const pdfGrid = document.getElementById('pdf-grid');
 
-// دروستکردنی ئایکۆنەکانی (کارت و لیست)
-const listIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>`;
-const gridIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>`;
+// دروستکردنی ئایکۆنە نوێیەکان (کارت و لیست)
+const listIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" /></svg>`;
+const gridIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>`;
 
 // وەرگرتنی هەڵبژاردەی پێشووی بەکارهێنەر (بۆ ئەوەی لە بیری نەچێتەوە)
-const currentView = localStorage.getItem('viewMode') || 'grid';
+const currentView = localStorage.getItem('viewMode') || 'list';
 if (currentView === 'list') {
     pdfGrid.classList.add('list-view');
     viewToggleBtn.innerHTML = gridIcon;
@@ -196,10 +197,10 @@ viewToggleBtn.addEventListener('click', () => {
     pdfGrid.classList.toggle('list-view');
     
     if (pdfGrid.classList.contains('list-view')) {
-        localStorage.setItem('viewMode', 'list'); // خەزنکردنی هەڵبژاردەی لیست
+        localStorage.setItem('viewMode', 'list'); 
         viewToggleBtn.innerHTML = gridIcon; // گۆڕینی ئایکۆنەکە بۆ کارت
     } else {
-        localStorage.setItem('viewMode', 'grid'); // خەزنکردنی هەڵبژاردەی کارت
+        localStorage.setItem('viewMode', 'grid'); 
         viewToggleBtn.innerHTML = listIcon; // گۆڕینی ئایکۆنەکە بۆ لیست
     }
 });
