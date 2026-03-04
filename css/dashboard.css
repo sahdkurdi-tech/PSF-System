@@ -235,3 +235,98 @@ table td {
     max-width: 100%;
     text-overflow: ellipsis;
 }
+
+/* === گۆڕینی خشتەی فایلەکان بۆ شێوازی کارت لەسەر مۆبایل === */
+@media (max-width: 768px) {
+    /* لابردنی شێوازی خشتە */
+    .table-container table, 
+    .table-container thead, 
+    .table-container tbody, 
+    .table-container th, 
+    .table-container td, 
+    .table-container tr {
+        display: block;
+        width: 100%;
+    }
+
+    /* شاردنەوەی سەری خشتەکە (بەروار، ناو، هتد) */
+    .table-container thead {
+        display: none;
+    }
+
+    /* دیزاینی هەر ڕیزێک وەک کارتێکی سەربەخۆ */
+    .table-container tr {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        margin-bottom: 15px;
+        padding: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* ڕێکخستنی ناوەڕۆکی خانەکان */
+    .table-container td {
+        padding: 0 !important;
+        border: none !important;
+        text-align: right !important;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px !important;
+    }
+
+    /* ١. ئایکۆنی ڕاکێشان (خستنە لای چەپی سەرەوەی کارتەکە) */
+    .table-container td.drag-handle {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        width: auto;
+        justify-content: flex-end;
+        cursor: grab;
+        color: #94a3b8;
+    }
+
+    /* ٢. ناوی فایل */
+    .table-container td:nth-child(2) {
+        font-size: 16px !important;
+        font-weight: bold !important;
+        color: var(--primary) !important;
+        padding-left: 35px !important; /* بۆ ئەوەی نەچێتە ژێر ئایکۆنی ڕاکێشانەکە */
+        display: block;
+        white-space: normal;
+        line-height: 1.4;
+    }
+
+    /* ٣. قەبارە */
+    .table-container td:nth-child(3)::before { content: "قەبارە:"; font-weight: bold; color: var(--text-gray); }
+    
+    /* ٤. ئامار */
+    .table-container td:nth-child(4)::before { content: "ئامار (بینین | چاپ):"; font-weight: bold; color: var(--text-gray); }
+    
+    /* ٥. بەروار */
+    .table-container td:nth-child(5)::before { content: "بەروار:"; font-weight: bold; color: var(--text-gray); }
+
+    /* ٦. دوگمەی سڕینەوە */
+    .table-container td:nth-child(6) {
+        margin-top: 10px;
+        padding-top: 15px !important;
+        border-top: 1px dashed #e2e8f0 !important;
+        justify-content: center;
+    }
+    
+    .btn-delete {
+        width: 100%;
+        justify-content: center;
+        padding: 12px !important;
+        font-size: 15px !important;
+    }
+    
+    /* وەستاندنی سکرۆڵی ئاسۆیی */
+    .table-container {
+        overflow-x: hidden !important;
+    }
+}
