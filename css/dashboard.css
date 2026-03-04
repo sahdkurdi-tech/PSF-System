@@ -131,3 +131,71 @@ td { color: var(--text-dark); font-size: 15px; font-weight: bold; }
 .drag-handle { cursor: grab; color: #94a3b8; text-align: center; }
 .drag-handle:active { cursor: grabbing; color: var(--primary); }
 .sortable-ghost { opacity: 0.4; background-color: #f1f5f9; }
+
+/* === التوافق مع شاشات الهواتف المحمولة === */
+@media (max-width: 600px) {
+    .main-container {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .upload-card, .files-list-card {
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+
+    /* ترتيب عناصر الرأس (الهيدر) */
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .app-header {
+        padding: 15px;
+    }
+
+    .card-header h2 {
+        font-size: 18px;
+    }
+
+    /* تعديل حقول الإدخال */
+    .input-group input[type="text"], .file-input {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .btn-upload {
+        font-size: 15px;
+        padding: 15px;
+    }
+
+    /* إصلاح قسم "رابط صفحة المشاهدين" ليصبح عمودياً على الهاتف */
+    .upload-card > div[style*="display: flex"] {
+        flex-direction: column;
+        gap: 10px !important;
+    }
+
+    #copyLinkBtn, #openLinkBtn {
+        width: 100% !important;
+        justify-content: center;
+        padding: 15px !important;
+        margin-top: 5px;
+    }
+
+    /* تحسين مساحات الجدول */
+    th, td {
+        padding: 12px 5px;
+        font-size: 13px;
+    }
+
+    .btn-delete {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .icon-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+}
