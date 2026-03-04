@@ -27,7 +27,7 @@
 
     <main class="main-container">
 
-<div class="upload-card" style="margin-bottom: 30px;">
+        <div class="upload-card" style="margin-bottom: 30px;">
             <div class="card-header">
                 <div class="icon-wrapper">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
@@ -53,28 +53,31 @@
             </div>
 
             <div class="files-list-card" style="margin-top: 30px;">
-            <div class="card-header">
-                <div class="icon-wrapper">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                <div class="card-header">
+                    <div class="icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                    </div>
+                    <h2>فایلە بارکراوەکان</h2>
                 </div>
-                <h2>فایلە بارکراوەکان</h2>
+                
+                <div class="table-container">
+                    <table id="filesTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;"></th> 
+                                <th>ناوی فایل</th>
+                                <th>قەبارە</th>
+                                <th>ئامار</th>
+                                <th>بەروار</th>
+                                <th style="text-align: left;">کردارەکان</th>
+                            </tr>
+                        </thead>
+                        <tbody id="filesTableBody">
+                            <tr><td colspan="6" class="loading-text">خەریکی هێنانی فایلەکانە...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            
-            <div class="table-container">
-                <table id="filesTable">
-<thead>
-    <tr>
-        <th style="width: 40px;"></th> <th>ناوی فایل</th>
-        <th>بەروار</th>
-        <th style="text-align: left;">کردارەکان</th>
-    </tr>
-</thead>
-                    <tbody id="filesTableBody">
-                        <tr><td colspan="3" class="loading-text">خەریکی هێنانی فایلەکانە...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
             
             <p class="subtitle">فایلەکە لە کۆمپیوتەر یان مۆبایلەکەت هەڵبژێرە و ناوێکی ڕوونی بۆ دابنێ.</p>
 

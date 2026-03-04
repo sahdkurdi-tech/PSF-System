@@ -31,6 +31,9 @@ uploadBtn.addEventListener("click", async () => {
 
     const fileExt = fileInput.name.split('.').pop();
     const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+    
+    // دروستکردنی کێشی فایلەکە
+    const fileSizeMB = (fileInput.size / (1024 * 1024)).toFixed(2) + ' MB';
 
     uploadBtn.disabled = true;
     progressContainer.style.display = "block";
@@ -40,7 +43,6 @@ uploadBtn.addEventListener("click", async () => {
     statusMsg.style.color = "#4f46e5";
 
     try {
-        // ١. بارکردنی فایلەکە بۆ Storage
         const { data: uploadData, error: uploadError } = await supabase.storage
             .from('pdfs')
             .upload(fileName, fileInput, {
@@ -50,18 +52,22 @@ uploadBtn.addEventListener("click", async () => {
 
         if (uploadError) throw uploadError;
 
-        // ٢. وەرگرتنی لینکی فایلەکە
         const { data: { publicUrl } } = supabase.storage
             .from('pdfs')
             .getPublicUrl(fileName);
 
         progressBar.style.width = '80%';
 
-        // ٣. خەزنکردنی ناو و لینکەکە لە خشتەی Database
         const { error: dbError } = await supabase
             .from('pdfs')
             .insert([
-                { name: nameInput, file_url: publicUrl }
+                { 
+                    name: nameInput, 
+                    file_url: publicUrl, 
+                    file_size: fileSizeMB,
+                    print_count: 0,
+                    open_count: 0
+                }
             ]);
 
         if (dbError) throw dbError;
@@ -71,7 +77,6 @@ uploadBtn.addEventListener("click", async () => {
         statusMsg.style.color = "#10b981";
         statusMsg.innerText = "فایلەکە بە سەرکەوتوویی زیادکرا!";
         
-        // نوێکردنەوەی خشتەکە دوای ئەپلۆد
         loadAdminPDFs();
         
         document.getElementById("pdfName").value = "";
@@ -91,22 +96,18 @@ uploadBtn.addEventListener("click", async () => {
     }
 });
 
-// چوونەدەرەوە
 document.getElementById("logoutBtn").addEventListener("click", async () => {
     await supabase.auth.signOut();
     window.location.href = "login.html";
 });
 
-// === بەشی هێنان و سڕینەوەی فایلەکان ===
 const filesTableBody = document.getElementById("filesTableBody");
 
-// فەنکشنی هێنانی فایلەکان
 async function loadAdminPDFs() {
     try {
         const { data: pdfs, error } = await supabase
             .from('pdfs')
             .select('*')
-            // سەرەتا بەپێی ڕیزبەندییە دەستکاریی کراوەکە ڕیزیان دەکات
             .order('sort_order', { ascending: true }) 
             .order('created_at', { ascending: false });
 
@@ -115,12 +116,16 @@ async function loadAdminPDFs() {
         filesTableBody.innerHTML = "";
 
         if (!pdfs || pdfs.length === 0) {
-            filesTableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:gray; padding: 20px;">هیچ فایلێک نییە.</td></tr>`;
+            filesTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:gray; padding: 20px;">هیچ فایلێک نییە.</td></tr>`;
             return;
         }
 
         pdfs.forEach((doc) => {
             const date = new Date(doc.created_at).toLocaleDateString('ku-IQ');
+            const size = doc.file_size || 'نەزانراو'; // لەبری N/A ئەگەر کۆن بوو
+            const prints = doc.print_count || 0;
+            const opens = doc.open_count || 0;
+
             const tr = document.createElement('tr');
             
             tr.innerHTML = `
@@ -128,6 +133,8 @@ async function loadAdminPDFs() {
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h.01M16 6h.01M8 12h.01M16 12h.01M8 18h.01M16 18h.01"/></svg>
                 </td>
                 <td>${doc.name}</td>
+                <td style="font-weight: normal; color: #64748b;" dir="ltr">${size}</td>
+                <td style="font-weight: normal; color: #10b981; font-size: 13px;">👁️ ${opens} | 🖨️ ${prints}</td>
                 <td style="font-weight: normal; color: #64748b; font-size: 14px;">${date}</td>
                 <td style="text-align: left;">
                     <button class="btn-delete" data-id="${doc.id}" data-url="${doc.file_url}">
@@ -139,7 +146,6 @@ async function loadAdminPDFs() {
             filesTableBody.appendChild(tr);
         });
 
-        // کارپێکردنی دوگمەی سڕینەوە...
         document.querySelectorAll('.btn-delete').forEach(btn => {
             btn.addEventListener('click', async (e) => {
                 const id = e.currentTarget.getAttribute('data-id');
@@ -148,12 +154,10 @@ async function loadAdminPDFs() {
             });
         });
 
-        // سڕینەوەی نوسخەی پێشووی Sortable ئەگەر هەبێت (بۆ ڕێگریکردن لە کێشەی تێکەڵبوون)
         if (window.mySortable) {
             window.mySortable.destroy(); 
         }
 
-        // === چالاککردنی سیستەمی Drag and Drop ===
         window.mySortable = new Sortable(filesTableBody, {
             handle: '.drag-handle',
             animation: 150,
@@ -174,7 +178,6 @@ async function loadAdminPDFs() {
                     }
                 });
 
-                // ناردنی ڕیزبەندییە نوێیەکە بۆ داتابەیس
                 try {
                     const updatePromises = updates.map(update => 
                         supabase.from('pdfs').update({ sort_order: update.sort_order }).eq('id', update.id)
@@ -182,14 +185,12 @@ async function loadAdminPDFs() {
                     
                     const results = await Promise.all(updatePromises);
                     
-                    // پشکنین بۆ هەڵەی پەیوەندیدار بە Supabase
                     const hasError = results.find(res => res.error);
                     if (hasError) throw hasError.error;
 
                     statusMsg.style.color = "#10b981";
                     statusMsg.innerText = "ڕیزبەندییەکە بە سەرکەوتوویی خەزن کرا!";
                     
-                    // لابردنی پەیامەکە دوای ٣ چرکە
                     setTimeout(() => { 
                         if(statusMsg.innerText === "ڕیزبەندییەکە بە سەرکەوتوویی خەزن کرا!") {
                             statusMsg.innerText = ""; 
@@ -206,11 +207,10 @@ async function loadAdminPDFs() {
 
     } catch (error) {
         console.error("هەڵە لە هێنانی فایلەکان:", error);
-        filesTableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:red;">کێشەیەک هەیە لە هێنانی فایلەکان.</td></tr>`;
+        filesTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red;">کێشەیەک هەیە لە هێنانی فایلەکان.</td></tr>`;
     }
 }
 
-// فەنکشنی سڕینەوەی فایل
 async function deleteFile(id, url, btnElement) {
     const confirmed = confirm("دڵنیایت لە سڕینەوەی ئەم فایلە؟ ئەم کردارە پاشگەزبوونەوەی تێدا نییە.");
     if (!confirmed) return;
@@ -245,14 +245,11 @@ async function deleteFile(id, url, btnElement) {
     }
 }
 
-// کاتێک پەڕەکە دەکرێتەوە، با خشتەی فایلەکان بهێنێت
 loadAdminPDFs();
 
-// === قسم عرض ونسخ رابط المشاهدين ===
 const viewerLinkInput = document.getElementById('viewerLink');
 const copyLinkBtn = document.getElementById('copyLinkBtn');
 
-// استخراج الرابط الأساسي للموقع وإضافة اسم صفحة المشاهدين
 const currentUrl = window.location.href;
 const baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
 viewerLinkInput.value = `${baseUrl}/viewer.html`;
@@ -261,13 +258,12 @@ copyLinkBtn.addEventListener('click', () => {
     viewerLinkInput.select();
     document.execCommand('copy');
     
-    // تأثير بصري عند النسخ
     const originalText = copyLinkBtn.innerText;
     copyLinkBtn.innerText = 'کۆپی کرا!';
-    copyLinkBtn.style.background = '#10b981'; // لون أخضر
+    copyLinkBtn.style.background = '#10b981'; 
     
     setTimeout(() => {
         copyLinkBtn.innerText = originalText;
-        copyLinkBtn.style.background = ''; // العودة للون الأصلي
+        copyLinkBtn.style.background = ''; 
     }, 2000);
 });
