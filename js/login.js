@@ -1,8 +1,8 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
 // لێرەدا URL و Key ی پڕۆژەکەی خۆت دابنێ کە لە Supabase کۆپیت کردوون
-const supabaseUrl = 'https://lijeymdwahgbodzkpnqq.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxpamV5bWR3YWhnYm9kemtwbnFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NjMyOTYsImV4cCI6MjA4ODEzOTI5Nn0.dEAbEl5Ld7ETCxgxxSiYFuNQ4ZyuV0wO0dbGfdZzro8';
+const supabaseUrl = 'https://zmopwbclwislhqecwmoq.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inptb3B3YmNsd2lzbGhxZWN3bW9xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0MzE3NDYsImV4cCI6MjA5MDAwNzc0Nn0.5-tCqPSYSrh7mFXGewPewLz2YohS3uG2VR0FsWBT8AU';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // پشکنین: ئەگەر پێشتر چووبێتە ژوورەوە، ڕاستەوخۆ بیبە بۆ داشبۆرد

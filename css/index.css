@@ -225,3 +225,34 @@ html, body {
 .btn-share:active { 
     transform: scale(0.96); 
 }
+
+.update-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4f46e5;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex; /* لە کاتی دەرکەوتندا دەبێتە flex */
+    align-items: center;
+    gap: 15px;
+    z-index: 9999;
+    font-family: 'NRT', sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.update-toast p { margin: 0; font-size: 15px; font-weight: bold; }
+.update-toast button {
+    background: #ffffff;
+    color: #4f46e5;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'NRT', sans-serif;
+    transition: 0.2s;
+}
+.update-toast button:hover { transform: scale(1.05); }
